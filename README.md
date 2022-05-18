@@ -1,3 +1,5 @@
+# Web-App to combine Spotify playlists
+
 Web app that combines Spotify playlists from multiple users, creating a new playlist with equal parts from each input playlist.
 
 This allows people with different tastes to combine their songs in a fair way. It is different than the Spotify "Blend" feature which aims to find songs people have in common. This app is intended to combine playlists of people with completely different tastes.
