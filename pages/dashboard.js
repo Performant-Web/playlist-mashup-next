@@ -6,7 +6,9 @@ import {
   FormLabel,
   InputGroup,
   Input,
-  Box
+  Box,
+  Button,
+  ButtonGroup
 } from "@chakra-ui/react";
 import Header from '/components/Header.jsx';
 import Layout from '/components/Layout.jsx';
@@ -18,10 +20,6 @@ export default function Dashboard() {
     const [user , setUser] = useState(Cookies.get('user'));
     const [playlists , setPlaylists] = useState()
     const [selectedPlaylists, setSelectedPlaylists] = useState([])
-
-    useEffect(()=>{
-      console.log(selectedPlaylists)
-        },[selectedPlaylists])
 
     function selectHandler(playlist) {
       if (!selectedPlaylists.includes(playlist)) {
@@ -52,6 +50,10 @@ export default function Dashboard() {
     const handleSubmit = async (event) => {
       event.preventDefault()
       setUser(event.target.user.value)
+    }
+
+    function clear() {
+      setSelectedPlaylists([])
     }
   
   return (
@@ -95,7 +97,7 @@ export default function Dashboard() {
                       color: "gray.100",
                     }}
                   >
-                    User
+                    Search by Spotify Username
                   </FormLabel>
                   <InputGroup size="sm">
                     <Input
@@ -153,6 +155,7 @@ export default function Dashboard() {
             display="flex"
             flexDirection="column"
             px={{ base: 4, lg: 10}}
+            mb={{ base: 5, lg: 10}}
           >
           {selectedPlaylists && selectedPlaylists.map((playlist, index) => (
             <SinglePlaylist isSelected={selectedPlaylists.includes(playlist)} key={index} handleSelect={selectHandler} >
@@ -160,6 +163,26 @@ export default function Dashboard() {
             </SinglePlaylist>         
           ))}
           </Box>
+          <ButtonGroup
+            display="flex"
+            justifyContent="space-around"
+            >
+          <Button 
+            rounded="full"
+            w="33%" 
+            colorScheme='gray'
+            >
+            Mashup
+            </Button>
+          <Button 
+          colorScheme='gray'
+          rounded="full"
+          w="33%"
+          onClick={clear}  
+          >
+          Clear
+          </Button>
+          </ButtonGroup>
         </Box>
       </Layout>
     </>
