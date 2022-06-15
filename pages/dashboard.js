@@ -21,6 +21,10 @@ export default function Dashboard() {
     const [playlists , setPlaylists] = useState()
     const [selectedPlaylists, setSelectedPlaylists] = useState([])
 
+    useEffect(()=>{
+      console.log(selectedPlaylists)
+    },[selectedPlaylists, user])
+
     function selectHandler(playlist) {
       if (!selectedPlaylists.includes(playlist)) {
           setSelectedPlaylists(selectedPlaylists => selectedPlaylists.concat(playlist));
@@ -133,9 +137,9 @@ export default function Dashboard() {
             mb={{ base: 5, lg: 10}}
           >
           {playlists && playlists.map((playlist, index) => (
-            <SinglePlaylist key={index} isSelected={selectedPlaylists.includes(playlist)} handleSelect={selectHandler}>
+            <SinglePlaylist key={index} isSelected={JSON.stringify(selectedPlaylists).includes(playlist.id)} handleSelect={selectHandler}>
               {playlist}
-            </SinglePlaylist>         
+            </SinglePlaylist>
           ))}
           </Box>
           <Box 
@@ -158,7 +162,7 @@ export default function Dashboard() {
             mb={{ base: 5, lg: 10}}
           >
           {selectedPlaylists && selectedPlaylists.map((playlist, index) => (
-            <SinglePlaylist isSelected={selectedPlaylists.includes(playlist)} key={index} handleSelect={selectHandler} >
+            <SinglePlaylist key={index} isSelected={JSON.stringify(selectedPlaylists).includes(playlist.id)} handleSelect={selectHandler} >
               {playlist}
             </SinglePlaylist>         
           ))}
