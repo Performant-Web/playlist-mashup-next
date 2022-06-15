@@ -17,10 +17,20 @@ import Cookies from 'js-cookie';
 export default function Dashboard() {
     const [user , setUser] = useState(Cookies.get('user'));
     const [playlists , setPlaylists] = useState()
+    const [selectedPlaylists, setSelectedPlaylists] = useState([])
 
     useEffect(()=>{
-      setUser(Cookies.get('user'))
-    },[])
+      console.log(selectedPlaylists)
+        },[selectedPlaylists])
+
+    function selectHandler(playlist) {
+      if (!selectedPlaylists.includes(playlist)) {
+          setSelectedPlaylists(selectedPlaylists => selectedPlaylists.concat(playlist));
+        }
+      if (selectedPlaylists.includes(playlist)) {
+        setSelectedPlaylists(selectedPlaylists.filter(list => list !== playlist))
+      }
+    }
 
     useEffect(()=>{
       const access_token = Cookies.get('token')
@@ -43,7 +53,7 @@ export default function Dashboard() {
       event.preventDefault()
       setUser(event.target.user.value)
     }
-
+  
   return (
     <>
       <Header auth={true}/>
@@ -91,7 +101,7 @@ export default function Dashboard() {
                     <Input
                       name="user"
                       id="user"
-                      placeholder={user}
+                      defaultValue={user}
                       focusBorderColor="gray.400"
                       rounded="md"
                       w="100%"
@@ -102,13 +112,50 @@ export default function Dashboard() {
             </chakra.form>
           </Box>
           <Box 
+            h="40vh"
             overflowY="scroll"
+            sx={{
+              '&::-webkit-scrollbar': {
+              width: '16px',
+              borderRadius: '8px',
+              backgroundColor: `rgba(125, 125, 125, 0.1)`,
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: `rgba(0, 0, 0, 0.1)`,
+              borderRadius: '8px',
+            },
+          }}
+            display="flex"
+            flexDirection="column"
+            px={{ base: 4, lg: 10}}
+            mb={{ base: 5, lg: 10}}
+          >
+          {playlists && playlists.map((playlist, index) => (
+            <SinglePlaylist key={index} isSelected={selectedPlaylists.includes(playlist)} handleSelect={selectHandler}>
+              {playlist}
+            </SinglePlaylist>         
+          ))}
+          </Box>
+          <Box 
+            h="40vh"
+            overflowY="scroll"
+            sx={{
+              '&::-webkit-scrollbar': {
+              width: '16px',
+              borderRadius: '8px',
+              backgroundColor: `rgba(125, 125, 125, 0.1)`,
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: `rgba(0, 0, 0, 0.1)`,
+              borderRadius: '8px',
+            },
+          }}
             display="flex"
             flexDirection="column"
             px={{ base: 4, lg: 10}}
           >
-          {playlists && playlists.map((playlist, index) => (
-            <SinglePlaylist>
+          {selectedPlaylists && selectedPlaylists.map((playlist, index) => (
+            <SinglePlaylist isSelected={selectedPlaylists.includes(playlist)} key={index} handleSelect={selectHandler} >
               {playlist}
             </SinglePlaylist>         
           ))}
