@@ -10,17 +10,12 @@ const Mashup = ({ lists, user }) => {
 
   async function generatePlaylist() {
     const token = Cookies.get('token')
-    /*lists.forEach((list) => {
-      let tracks = []
-      const count = [...Array(Math.ceil(list.tracks.total / 100))].map((_, i) => i * 100);
-      count.map(async (x) => {
-        const partialTracks = await fetchTracks(list.id, x, token)
-        console.log(partialTracks)
-      })
-  })*/
-    fetchTracks(lists, token)
-    //findSimilar();
-    //combineTracks();
+    const trackList = await fetchTracks(lists, token)
+    
+    
+    findMatches(trackList)
+    //combinePlaylists();
+    //console.log(matches)
     //createPlaylist();
     //addToPlaylist();
     //goToPlaylist();
@@ -39,55 +34,26 @@ const Mashup = ({ lists, user }) => {
   
   async function fetchTracks(lists, token) {
     const playlists = []
-    lists.forEach(async (list) => {
-      const listID = list.id
+    await Promise.all(lists.map(async (list) => {
+      let tracks = []
       const count = [...Array(Math.ceil(list.tracks.total / 100))].map((_, i) => i * 100);
-      const tracks = []
-      count.map(async (offset) => {
-        let data = await fetchPlaylist(listID, offset, token);
+      await Promise.all(count.map(async (offset) => {
+        let data = await fetchPlaylist(list.id, offset, token);
         data.items.map((item)=> {
           tracks.push(item.track.uri)
         })
-      })
+      }))
       playlists.push(tracks)
-    })
+    }))
     return playlists
   }
-/*
-  async function findSimilar() {
-    const access_token = Cookies.get('token')
-    const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
-        method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + access_token
-        },
-        body: JSON.stringify({
-            "name": "test",
-            "description": "Created by Playlist Mashup",
-            "public": true
-        })
-    })
-    const data = await response.json()
-    const playlistUrl = data.external_urls.spotify
-    router.push(playlistUrl)
-  }*/
 
-  async function combineTracks() {
-    /*const access_token = Cookies.get('token')
-    const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
-        method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + access_token
-        },
-        body: JSON.stringify({
-            "name": "test",
-            "description": "Created by Playlist Mashup",
-            "public": true
-        })
-    })
-    const data = await response.json()
-    const playlistUrl = data.external_urls.spotify*/
-    //router.push(playlistUrl)
+  function findMatches(list) {
+    let matches = list.reduce((a, b) => a.filter(c => b.includes(c)))
+  }
+
+  async function combinePlaylists() {
+
   }
 
   async function createPlaylist() {
