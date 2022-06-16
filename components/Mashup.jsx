@@ -11,9 +11,7 @@ const Mashup = ({ lists, user }) => {
   async function generatePlaylist() {
     const token = Cookies.get('token')
     const trackList = await fetchTracks(lists, token)
-    
-    
-    findMatches(trackList)
+    let newTrackList = findMatches(trackList)
     //combinePlaylists();
     //console.log(matches)
     //createPlaylist();
@@ -50,6 +48,7 @@ const Mashup = ({ lists, user }) => {
 
   function findMatches(list) {
     let matches = list.reduce((a, b) => a.filter(c => b.includes(c)))
+    return matches
   }
 
   async function combinePlaylists() {
