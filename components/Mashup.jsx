@@ -12,7 +12,6 @@ const Mashup = ({ lists, user }) => {
     const token = Cookies.get('token')
     const trackList = await fetchTracks(lists, token)
     let newTrackList = findMatches(trackList)
-    console.log(newTrackList)
     //findShortest();
     //combinePlaylists();
     //removeDuplicates();
