@@ -15,8 +15,10 @@ const Mashup = ({ lists, user }) => {
     console.log(newTrackList)
     //findShortest();
     //combinePlaylists();
+    //removeDuplicates();
     //createPlaylist();
     //addToPlaylist();
+    
     //goToPlaylist();
   }
 
@@ -53,23 +55,35 @@ const Mashup = ({ lists, user }) => {
   }
 
   async function findShortest() {
-    // Find shortest playlist here
+    //Find the length of the shortest playlist and assign to variable
+    /*const lengths = []
+    let minLength
+     Minimum length and randomly shuffle
+    for (x in combinedPlaylists) {
+        lengths.push(combinedPlaylists[x].length)
+        minLength = Math.min(...lengths)
+    }*/
   }
 
   async function combinePlaylists() {
-    // Combine playlists here
+    //combine the playlists randomly, removing from combinedPlaylists so no doubles
+    /*let i = 0
+    while (i < minLength) {
+        for (x in combinedPlaylists) {
+            const index = Math.floor(Math.random() * combinedPlaylists[x].length)
+            trackList.push(combinedPlaylists[x][index])
+            combinedPlaylists[x].splice(index, 1)
+        }
+        i++
+    }*/
+  }
+
+  async function removeDuplicates() {
+    // Remove any duplicates
+    //const uniqueTrackList = [...new Set(trackList)]
   }
 
   async function createPlaylist() {
-    // Create new playlist here 
-  }
-
-  async function addToPlaylist() {
-    // Add songs to playlist here
-  }
-
-  async function goToPlaylist() {
-    const access_token = Cookies.get('token')
     const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
         method: 'POST',
         headers: {
@@ -83,6 +97,40 @@ const Mashup = ({ lists, user }) => {
     })
     const data = await response.json()
     const playlistUrl = data.external_urls.spotify
+    return playlistUrl
+} 
+
+  async function addToPlaylist() {
+    //function to add new songs to the new playlist with spotify API
+  /*
+
+      async function sendToPlaylist(){
+    await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+      method: 'POST',
+      headers: {
+          "Authorization": "Bearer " + access_token
+      },
+      body: JSON.stringify({ "uris": tracks })
+    })
+  }
+
+    //make multiple requests if more than 100 songs to be added
+    //addToPlaylist(playlistID, tracks.slice(0, 100))
+
+    const repeat = Math.ceil(tracks.length / 100)
+    let i = 0
+    while (i < (repeat - 1)) {
+        await addToPlaylist(playlistID, tracks.slice(i * 100, (i + 1) * 100))
+        i++
+    }
+    await addToPlaylist(playlistID, tracks.slice(i * 100, tracks.length))
+    document.querySelector("#generating").style.display = "none"
+    document.querySelector("#generating-text").style.display = "none"
+    window.location = playlistURL
+    */
+  }
+
+  async function goToPlaylist(playlistUrl) {
     router.push(playlistUrl)
   }
 
