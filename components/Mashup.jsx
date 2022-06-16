@@ -12,6 +12,8 @@ const Mashup = ({ lists, user }) => {
     const token = Cookies.get('token')
     const trackList = await fetchTracks(lists, token)
     let newTrackList = findMatches(trackList)
+    console.log(newTrackList)
+    //findShortest();
     //combinePlaylists();
     //createPlaylist();
     //addToPlaylist();
@@ -48,6 +50,10 @@ const Mashup = ({ lists, user }) => {
   function findMatches(list) {
     let matches = list.reduce((a, b) => a.filter(c => b.includes(c)))
     return matches
+  }
+
+  async function findShortest() {
+    // Find shortest playlist here
   }
 
   async function combinePlaylists() {
