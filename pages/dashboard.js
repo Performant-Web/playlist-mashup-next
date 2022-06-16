@@ -13,6 +13,7 @@ import {
 import Header from '/components/Header.jsx';
 import Layout from '/components/Layout.jsx';
 import SinglePlaylist from '/components/SinglePlaylist.jsx';
+import Mashup from '/components/Mashup.jsx';
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 
@@ -20,10 +21,6 @@ export default function Dashboard() {
     const [user , setUser] = useState(Cookies.get('user'));
     const [playlists , setPlaylists] = useState()
     const [selectedPlaylists, setSelectedPlaylists] = useState([])
-
-    useEffect(()=>{
-      console.log(selectedPlaylists)
-    },[selectedPlaylists, user])
 
     function selectHandler(playlist) {
       if (!selectedPlaylists.includes(playlist)) {
@@ -171,13 +168,7 @@ export default function Dashboard() {
             display="flex"
             justifyContent="space-around"
             >
-          <Button 
-            rounded="full"
-            w="33%" 
-            colorScheme='gray'
-            >
-            Mashup
-            </Button>
+          <Mashup lists={selectedPlaylists} user={user} />
           <Button 
           colorScheme='gray'
           rounded="full"
