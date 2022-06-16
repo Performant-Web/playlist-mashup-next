@@ -53,47 +53,19 @@ const Mashup = ({ lists, user }) => {
   }
 
   async function combinePlaylists() {
-
+    // Combine playlists here
   }
 
   async function createPlaylist() {
-    /*const access_token = Cookies.get('token')
-    const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
-        method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + access_token
-        },
-        body: JSON.stringify({
-            "name": "test",
-            "description": "Created by Playlist Mashup",
-            "public": true
-        })
-    })
-    const data = await response.json()
-    const playlistUrl = data.external_urls.spotify*/
-    //router.push(playlistUrl)
+    // Create new playlist here 
   }
 
   async function addToPlaylist() {
-    /*const access_token = Cookies.get('token')
-    const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
-        method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + access_token
-        },
-        body: JSON.stringify({
-            "name": "test",
-            "description": "Created by Playlist Mashup",
-            "public": true
-        })
-    })
-    const data = await response.json()
-    const playlistUrl = data.external_urls.spotify*/
-    //router.push(playlistUrl)
+    // Add songs to playlist here
   }
 
   async function goToPlaylist() {
-    /*const access_token = Cookies.get('token')
+    const access_token = Cookies.get('token')
     const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
         method: 'POST',
         headers: {
@@ -106,8 +78,8 @@ const Mashup = ({ lists, user }) => {
         })
     })
     const data = await response.json()
-    const playlistUrl = data.external_urls.spotify*/
-    //router.push(playlistUrl)
+    const playlistUrl = data.external_urls.spotify
+    router.push(playlistUrl)
   }
 
     return (
