@@ -13,7 +13,6 @@ const Mashup = ({ lists, user }) => {
     const trackList = await fetchTracks(lists, token)
     let newTrackList = findMatches(trackList)
     //combinePlaylists();
-    //console.log(matches)
     //createPlaylist();
     //addToPlaylist();
     //goToPlaylist();
