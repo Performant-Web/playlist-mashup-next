@@ -84,7 +84,8 @@ export default function Dashboard() {
               method="POST"
               onSubmit={handleSubmit}
               mb="5"
-              px={{ base: 4, lg: 10}}
+              pl={{ base: 6, lg: 12}}
+              pr= {{ base: 8, lg: 14}}
             >
               <Stack
                 spacing={6}
@@ -110,6 +111,7 @@ export default function Dashboard() {
                       rounded="md"
                       w="100%"
                     />
+                    <Button w="150px" ml="2" type="submit">Search</Button>
                   </InputGroup>
                 </FormControl>
               </Stack>
@@ -170,7 +172,8 @@ export default function Dashboard() {
             //onChange={(e)=> setInput(e.target.value)}
             //onSubmit={(e)=> e.preventDefault()}
             mb="5"
-            px={{ base: 4, lg: 10}}
+            pl={{ base: 6, lg: 12}}
+            pr= {{ base: 8, lg: 14}}
           >
             <Stack
               spacing={6}
