@@ -33,7 +33,7 @@ const SinglePlaylist = ({ children, handleSelect, isSelected }) => {
             onClick={() => handleSelect(children)}
             >
             {(children.images.length > 0) ? 
-            <Image src={children.images[children.images.length - 1].url} h="40px" w="40px" />:
+            <Image src={children.images[children.images.length - 1].url} h="40px" w="40px" alt=""/>:
             <Box bg="gray.500" h="40px" w="40px" />}
             <Box
                 as="span"
