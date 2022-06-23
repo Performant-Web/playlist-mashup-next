@@ -20,8 +20,8 @@ const SinglePlaylist = ({ children, handleSelect, isSelected }) => {
 
     return (
         <Link
-            p="2"
-            ml="4"
+            p="1"
+            ml="2"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -33,9 +33,11 @@ const SinglePlaylist = ({ children, handleSelect, isSelected }) => {
             onClick={() => handleSelect(children)}
             >
             {(children.images.length > 0) ? 
-            <Image src={children.images[children.images.length - 1].url} h="50px" w="50px" />:
-            <Box bg="gray.500" h="50px" w="50px" />}
+            <Image src={children.images[children.images.length - 1].url} h="40px" w="40px" />:
+            <Box bg="gray.500" h="40px" w="40px" />}
             <Box
+                as="span"
+                fontSize="sm"
                 display="flex"
                 flexDirection="column"
                 px="2"
@@ -44,7 +46,7 @@ const SinglePlaylist = ({ children, handleSelect, isSelected }) => {
                     {truncate(children.name)}
                 </Box>
                 <Box
-                color="gray.500">
+                as="span" fontSize="sm" color="gray.500">
                     {children.tracks.total} Tracks
                 </Box>
             </Box>
@@ -52,9 +54,9 @@ const SinglePlaylist = ({ children, handleSelect, isSelected }) => {
             isChecked={isSelected}
             colorScheme="gray" 
             ml="auto"
-            mr="4"
+            mr="2"
             rounded="md"
-            size="lg"
+            size="md"
             pointerEvents="none"
             />
         </Link>
