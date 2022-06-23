@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
 import {
   Button,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
 const Mashup = ({ lists, user }) => {
+
   const router = useRouter();
+  const hover = useColorModeValue(true, false);
 
   async function generatePlaylist() {
     const token = Cookies.get('token');
@@ -135,8 +138,22 @@ const Mashup = ({ lists, user }) => {
       <Button 
       rounded="full"
       w="33%" 
-      colorScheme='gray'
+      color="black"
+      bgColor="#1dd760"
       onClick={generatePlaylist}
+      transition="all 0.3s"
+        _hover={hover ? {
+          bgColor: "#21eb69",
+        } :
+        {
+          bgColor: "#17a349",
+        }}
+        _active={{
+          borderColor: "gray.200",
+        }}
+        _focus={{
+          boxShadow: "outline",
+        }}
       >
       Mashup
       </Button>
