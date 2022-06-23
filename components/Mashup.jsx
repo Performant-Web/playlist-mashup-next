@@ -1,26 +1,24 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import {
   Button,
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
 const Mashup = ({ lists, user }) => {
-
   const router = useRouter();
 
   async function generatePlaylist() {
-    const token = Cookies.get('token')
-    const trackList = await fetchTracks(lists, token)
-    let newTrackList = findMatches(trackList)
-    //findShortest();
-    //combinePlaylists();
-    //removeDuplicates();
+    const token = Cookies.get('token');
+    const trackLists = await fetchTracks(lists, token);
+    const matches = (findMatches(trackLists));
+    const uniqueTrackLists = removeDuplicates(trackLists, matches);
+    const finalTrackList = combinePlaylists(uniqueTrackLists, matches);
     //createPlaylist();
     //addToPlaylist();
-    
     //goToPlaylist();
   }
 
+  //get individual playlist
   async function fetchPlaylist(listname, offset, token) {
     const response = await fetch(`https://api.spotify.com/v1/playlists/${listname}/tracks?offset=${offset}`, {
         method: 'GET',
@@ -28,58 +26,69 @@ const Mashup = ({ lists, user }) => {
             "Authorization": "Bearer " + token
         }
     })
-    const tracks = await response.json()
-    return tracks
+    const tracks = await response.json();
+    return tracks;
   }
-  
+
+  //get all tracks from selected playlists
   async function fetchTracks(lists, token) {
-    const playlists = []
+    const playlists = [];
     await Promise.all(lists.map(async (list) => {
-      let tracks = []
+      let tracks = [];
       const count = [...Array(Math.ceil(list.tracks.total / 100))].map((_, i) => i * 100);
       await Promise.all(count.map(async (offset) => {
         let data = await fetchPlaylist(list.id, offset, token);
         data.items.map((item)=> {
-          tracks.push(item.track.uri)
+          tracks.push(item.track.uri);
         })
       }))
-      playlists.push(tracks)
+      playlists.push(tracks);
     }))
-    return playlists
+    return playlists;
   }
 
+  //find tracks that match
   function findMatches(list) {
-    let matches = list.reduce((a, b) => a.filter(c => b.includes(c)))
-    return matches
+    let matches = list.reduce((a, b) => a.filter(c => b.includes(c)));
+    return matches;
   }
 
-  async function findShortest() {
-    //Find the length of the shortest playlist and assign to variable
-    /*const lengths = []
-    let minLength
-     Minimum length and randomly shuffle
-    for (x in combinedPlaylists) {
-        lengths.push(combinedPlaylists[x].length)
-        minLength = Math.min(...lengths)
-    }*/
+  //find the length of the shortest playlist
+  function findShortest(lists) {
+    const shortest = lists.reduce((a, b) => a.length <= b.length ? a : b);
+    return shortest.length;
   }
 
-  async function combinePlaylists() {
-    //combine the playlists randomly, removing from combinedPlaylists so no doubles
-    /*let i = 0
-    while (i < minLength) {
-        for (x in combinedPlaylists) {
-            const index = Math.floor(Math.random() * combinedPlaylists[x].length)
-            trackList.push(combinedPlaylists[x][index])
-            combinedPlaylists[x].splice(index, 1)
+  //remove matches from original list
+  function removeDuplicates(lists, matches) {
+    let uniqueLists = []
+    lists.forEach(list => {
+      uniqueLists = [...uniqueLists, list.filter(x => !matches.includes(x))];
+    })
+    return uniqueLists
+  }
+
+  //combine the playlists randomly, removing from combinedPlaylists so no doubles
+  function combinePlaylists(lists, matches) {
+
+  let finalList = matches;
+
+    first:
+    while (true) {
+        for (let list of lists){
+            const index = Math.floor(Math.random() * list.length);
+            const track = list[index];
+            finalList.push(track);
+            list.splice(index, 1);
         }
-        i++
-    }*/
-  }
-
-  async function removeDuplicates() {
-    // Remove any duplicates
-    //const uniqueTrackList = [...new Set(trackList)]
+        //check if list is empty and break
+        for (let list of lists) {
+          if (list.length === 0) {
+          break first;
+        }
+      }
+    }
+    return finalList
   }
 
   async function createPlaylist() {
