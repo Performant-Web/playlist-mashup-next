@@ -46,7 +46,7 @@ const ChakraUIHeader = ({ auth }) => {
             <Flex align="center">
               <Link href="/" rounded="md" >
                 <HStack p="8px">
-                <Image src={'mike.jpg'} alt="playlist mashup logo" width="32" height="32" />
+                <Image src="/logo.png" alt="playlist mashup logo" width="32" height="32" />
                 </HStack>
               </Link>
             </Flex>
