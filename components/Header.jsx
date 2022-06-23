@@ -1,5 +1,4 @@
 import React from "react";
-import Image from 'next/image';
 import {
   chakra,
   Flex,
@@ -46,7 +45,7 @@ const ChakraUIHeader = ({ auth }) => {
             <Flex align="center">
               <Link href="/" rounded="md" >
                 <HStack p="8px">
-                <Image src="https://playlistmashup.com/logo.png" alt="playlist mashup logo" width="32" height="32" />
+                <img src="https://playlistmashup.com/logo.png" alt="playlist mashup logo" width="32" height="32" />
                 </HStack>
               </Link>
             </Flex>
