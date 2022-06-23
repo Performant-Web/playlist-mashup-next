@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   chakra,
   Flex,
@@ -13,6 +14,7 @@ import GetStarted from '/components/GetStarted.jsx'
 import SignOut from '/components/SignOut.jsx'
 import { useViewportScroll } from "framer-motion";
 import { FaMoon, FaSun } from "react-icons/fa";
+import image from "../public/logo.png"
 
 const ChakraUIHeader = ({ auth }) => {
 
@@ -45,7 +47,7 @@ const ChakraUIHeader = ({ auth }) => {
             <Flex align="center">
               <Link href="/" rounded="md" >
                 <HStack p="8px">
-                <img src="https://playlistmashup.com/logo.png" alt="playlist mashup logo" width="32" height="32" />
+                <Image src={image} alt="playlist mashup logo" width="32" height="32" />
                 </HStack>
               </Link>
             </Flex>
