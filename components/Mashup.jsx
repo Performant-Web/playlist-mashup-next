@@ -13,9 +13,9 @@ const Mashup = ({ lists, user }) => {
     const matches = (findMatches(trackLists));
     const uniqueTrackLists = removeDuplicates(trackLists, matches);
     const finalTrackList = combinePlaylists(uniqueTrackLists, matches);
-    //createPlaylist();
-    //addToPlaylist();
-    //goToPlaylist();
+    const playlist = await createPlaylist(user, token);
+    await sendToPlaylist(playlist.id, finalTrackList , token);
+    goToPlaylist(playlist.url);
   }
 
   //get individual playlist
@@ -53,12 +53,6 @@ const Mashup = ({ lists, user }) => {
     return matches;
   }
 
-  //find the length of the shortest playlist
-  function findShortest(lists) {
-    const shortest = lists.reduce((a, b) => a.length <= b.length ? a : b);
-    return shortest.length;
-  }
-
   //remove matches from original list
   function removeDuplicates(lists, matches) {
     let uniqueLists = []
@@ -68,11 +62,9 @@ const Mashup = ({ lists, user }) => {
     return uniqueLists
   }
 
-  //combine the playlists randomly, removing from combinedPlaylists so no doubles
+  //combine the playlists randomly
   function combinePlaylists(lists, matches) {
-
   let finalList = matches;
-
     first:
     while (true) {
         for (let list of lists){
@@ -91,7 +83,8 @@ const Mashup = ({ lists, user }) => {
     return finalList
   }
 
-  async function createPlaylist() {
+  //create the new playlist
+  async function createPlaylist(user, access_token) {
     const response = await fetch(`https://api.spotify.com/v1/users/${user}/playlists`, {
         method: 'POST',
         headers: {
@@ -103,17 +96,17 @@ const Mashup = ({ lists, user }) => {
             "public": true
         })
     })
-    const data = await response.json()
-    const playlistUrl = data.external_urls.spotify
-    return playlistUrl
-} 
+    const data = await response.json();
+    const playlist = {
+      url: data.external_urls.spotify,
+      id: data.id
+    }
+    return playlist
+  }
 
-  async function addToPlaylist() {
-    //function to add new songs to the new playlist with spotify API
-  /*
-
-      async function sendToPlaylist(){
-    await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+  //add songs to playlist
+  async function addToPlaylist(id, tracks, access_token){
+    await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
       method: 'POST',
       headers: {
           "Authorization": "Bearer " + access_token
@@ -122,22 +115,18 @@ const Mashup = ({ lists, user }) => {
     })
   }
 
-    //make multiple requests if more than 100 songs to be added
-    //addToPlaylist(playlistID, tracks.slice(0, 100))
-
+  //send multiple requests if more than 100 songs to be added
+  async function sendToPlaylist(id, tracks, access_token) {
     const repeat = Math.ceil(tracks.length / 100)
     let i = 0
-    while (i < (repeat - 1)) {
-        await addToPlaylist(playlistID, tracks.slice(i * 100, (i + 1) * 100))
+      while (i < (repeat - 1)) {
+        await addToPlaylist(id, tracks.slice(i * 100, (i + 1) * 100), access_token)
         i++
-    }
-    await addToPlaylist(playlistID, tracks.slice(i * 100, tracks.length))
-    document.querySelector("#generating").style.display = "none"
-    document.querySelector("#generating-text").style.display = "none"
-    window.location = playlistURL
-    */
-  }
+      }
+    await addToPlaylist(id, tracks.slice(i * 100, tracks.length), access_token)
+  } 
 
+  //go to finished playlist
   async function goToPlaylist(playlistUrl) {
     router.push(playlistUrl)
   }
