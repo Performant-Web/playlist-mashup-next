@@ -5,20 +5,23 @@ import {
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
-const Mashup = ({ lists, user, name }) => {
+const Mashup = ({ lists, name }) => {
 
   const router = useRouter();
   const hover = useColorModeValue(true, false);
 
   async function generatePlaylist() {
-    const token = Cookies.get('token');
-    const trackLists = await fetchTracks(lists, token);
-    const matches = (findMatches(trackLists));
-    const uniqueTrackLists = removeDuplicates(trackLists, matches);
-    const finalTrackList = combinePlaylists(uniqueTrackLists, matches);
-    const playlist = await createPlaylist(user, token, name);
-    await sendToPlaylist(playlist.id, finalTrackList , token);
-    goToPlaylist(playlist.url);
+    if(lists.length > 0){
+      const token = Cookies.get('token');
+      const user = Cookies.get('user');
+      const trackLists = await fetchTracks(lists, token);
+      const matches = (findMatches(trackLists));
+      const uniqueTrackLists = removeDuplicates(trackLists, matches);
+      const finalTrackList = combinePlaylists(uniqueTrackLists, matches);
+      const playlist = await createPlaylist(user, token, name);
+      await sendToPlaylist(playlist.id, finalTrackList , token);
+      goToPlaylist(playlist.url);
+    }
   }
 
   //get individual playlist
@@ -100,7 +103,8 @@ const Mashup = ({ lists, user, name }) => {
         })
     })
     const data = await response.json();
-    const playlist = {
+    console.log(data)
+     const playlist = {
       url: data.external_urls.spotify,
       id: data.id
     }

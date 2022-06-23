@@ -75,7 +75,7 @@ export default function Dashboard() {
           _dark={{
             bg: "gray.800",
           }}
-          py={{ base: 5, lg: 10}}
+          py="5"
           rounded={[null, "md"]}
           shadow="base"
           >
@@ -83,7 +83,7 @@ export default function Dashboard() {
             <chakra.form
               method="POST"
               onSubmit={handleSubmit}
-              mb={{ base: 5, lg: 10}}
+              mb="5"
               px={{ base: 4, lg: 10}}
             >
               <Stack
@@ -132,7 +132,7 @@ export default function Dashboard() {
             display="flex"
             flexDirection="column"
             px={{ base: 4, lg: 10}}
-            mb={{ base: 5, lg: 10}}
+            mb="5"
           >
           {playlists && playlists.map((playlist, index) => (
             <SinglePlaylist key={index} isSelected={JSON.stringify(selectedPlaylists).includes(playlist.id)} handleSelect={selectHandler}>
@@ -157,7 +157,7 @@ export default function Dashboard() {
             display="flex"
             flexDirection="column"
             px={{ base: 4, lg: 10}}
-            mb={{ base: 5, lg: 10}}
+            mb="5"
           >
           {selectedPlaylists && selectedPlaylists.map((playlist, index) => (
             <SinglePlaylist key={index} isSelected={JSON.stringify(selectedPlaylists).includes(playlist.id)} handleSelect={selectHandler} >
@@ -169,7 +169,7 @@ export default function Dashboard() {
             method="POST"
             //onChange={(e)=> setInput(e.target.value)}
             //onSubmit={(e)=> e.preventDefault()}
-            mb={{ base: 5, lg: 10}}
+            mb="5"
             px={{ base: 4, lg: 10}}
           >
             <Stack
@@ -188,8 +188,8 @@ export default function Dashboard() {
                 </FormLabel>
                 <InputGroup size="sm">
                   <Input
-                    name="name"
-                    id="name"
+                    name="playlistName"
+                    id="playlistName"
                     onBlur={(e) => setName(e.target.value)}
                     defaultValue={name}
                     focusBorderColor="gray.400"
@@ -204,7 +204,7 @@ export default function Dashboard() {
             display="flex"
             justifyContent="space-around"
             >
-          <Mashup lists={selectedPlaylists} user={user} name={name}/>
+          <Mashup lists={selectedPlaylists} name={name}/>
           <Button 
           colorScheme='gray'
           rounded="full"
