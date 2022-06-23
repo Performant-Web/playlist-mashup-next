@@ -18,8 +18,9 @@ import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 
 export default function Dashboard() {
-    const [user , setUser] = useState(Cookies.get('user'));
-    const [playlists , setPlaylists] = useState()
+    const [user, setUser] = useState(Cookies.get('user'));
+    const [name, setName] = useState("New Playlist");
+    const [playlists, setPlaylists] = useState()
     const [selectedPlaylists, setSelectedPlaylists] = useState([])
 
     function selectHandler(playlist) {
@@ -164,11 +165,46 @@ export default function Dashboard() {
             </SinglePlaylist>         
           ))}
           </Box>
+          <chakra.form
+            method="POST"
+            //onChange={(e)=> setInput(e.target.value)}
+            //onSubmit={(e)=> e.preventDefault()}
+            mb={{ base: 5, lg: 10}}
+            px={{ base: 4, lg: 10}}
+          >
+            <Stack
+              spacing={6}
+            >
+              <FormControl>
+                <FormLabel
+                  fontSize="sm"
+                  fontWeight="md"
+                  color="gray.700"
+                  _dark={{
+                    color: "gray.100",
+                  }}
+                >
+                  Enter New Playlist Name
+                </FormLabel>
+                <InputGroup size="sm">
+                  <Input
+                    name="name"
+                    id="name"
+                    onBlur={(e) => setName(e.target.value)}
+                    defaultValue={name}
+                    focusBorderColor="gray.400"
+                    rounded="md"
+                    w="100%"
+                  />
+                </InputGroup>
+              </FormControl>
+            </Stack>
+          </chakra.form>
           <ButtonGroup
             display="flex"
             justifyContent="space-around"
             >
-          <Mashup lists={selectedPlaylists} user={user} />
+          <Mashup lists={selectedPlaylists} user={user} name={name}/>
           <Button 
           colorScheme='gray'
           rounded="full"

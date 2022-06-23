@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
-const Mashup = ({ lists, user }) => {
+const Mashup = ({ lists, user, name }) => {
 
   const router = useRouter();
   const hover = useColorModeValue(true, false);
@@ -16,7 +16,7 @@ const Mashup = ({ lists, user }) => {
     const matches = (findMatches(trackLists));
     const uniqueTrackLists = removeDuplicates(trackLists, matches);
     const finalTrackList = combinePlaylists(uniqueTrackLists, matches);
-    const playlist = await createPlaylist(user, token);
+    const playlist = await createPlaylist(user, token, name);
     await sendToPlaylist(playlist.id, finalTrackList , token);
     goToPlaylist(playlist.url);
   }
@@ -94,7 +94,7 @@ const Mashup = ({ lists, user }) => {
             "Authorization": "Bearer " + access_token
         },
         body: JSON.stringify({
-            "name": "test",
+            "name": name,
             "description": "Created by Playlist Mashup",
             "public": true
         })
