@@ -16,6 +16,22 @@ import Document, {
       return (
         <Html>
           <Head>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=G-GWGG03KZ0N`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GWGG03KZ0N', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
             <link
               rel="preconnect"
               href="https://fonts.gstatic.com"
