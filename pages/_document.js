@@ -16,24 +16,11 @@ import Document, {
       return (
         <Html lang='en'>
           <Head>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=G-LM906722HL`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-LM906722HL', {
-              page_path: window.location.pathname,
-            });
-          `,
-            }}
-          />
           </Head>
           <body>
+            <noscript dangerouslySetInnerHTML={{ __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=G-LM906722HL"
+              height="0" width="0" style="display:none;visibility:hidden"></iframe>`}}>
+            </noscript>
             <Main />
             <NextScript />
           </body>
