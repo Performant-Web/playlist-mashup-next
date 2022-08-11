@@ -63,6 +63,7 @@ export default function Dashboard() {
     <>
       <Head>
         <title>Playlist Mashup - Dashboard</title>
+        <meta name="Combine Spotify Playlists - Dashboard"></meta>
       </Head>
       <Header auth={true}/>
       <Layout>

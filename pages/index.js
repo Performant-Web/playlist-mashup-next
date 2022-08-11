@@ -17,6 +17,7 @@ const Home = ({ clientId }) => {
       <>
       <Head>
         <title>Playlist Mashup</title>
+        <meta name="Combine Spotify Playlists"></meta>
       </Head>
         <Header auth={false} />
         <Layout>
