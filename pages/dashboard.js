@@ -16,6 +16,7 @@ import SinglePlaylist from '/components/SinglePlaylist.jsx';
 import Mashup from '/components/Mashup.jsx';
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
+import Head from 'next/head';
 
 export default function Dashboard() {
     const [user, setUser] = useState(Cookies.get('user'));
@@ -60,6 +61,9 @@ export default function Dashboard() {
   
   return (
     <>
+      <Head>
+        <title>Playlist Mashup - Dashboard</title>
+      </Head>
       <Header auth={true}/>
       <Layout>
         <Box

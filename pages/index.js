@@ -8,12 +8,16 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import GetStarted from '/components/GetStarted.jsx'
+import Head from 'next/head';
 
 const Home = ({ clientId }) => {
     const bg = useColorModeValue("rgba(255,255,255,.8)", "rgba(0,0,0,.93)");
     const text = useColorModeValue("black", "white");
   return (
       <>
+      <Head>
+        <title>Playlist Mashup</title>
+      </Head>
         <Header auth={false} />
         <Layout>
             <Box
