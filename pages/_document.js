@@ -14,7 +14,7 @@ import Document, {
   
     render() {
       return (
-        <Html>
+        <Html lang='en'>
           <Head>
           <script
             async
