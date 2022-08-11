@@ -18,7 +18,7 @@ import Document, {
           <Head>
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=G-GWGG03KZ0N`}
+            src={`https://www.googletagmanager.com/gtag/js?id=G-LM906722HL`}
           />
           <script
             dangerouslySetInnerHTML={{
@@ -26,7 +26,7 @@ import Document, {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-GWGG03KZ0N', {
+            gtag('config', 'G-LM906722HL', {
               page_path: window.location.pathname,
             });
           `,
