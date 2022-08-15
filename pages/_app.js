@@ -46,12 +46,20 @@ const theme = extendTheme({
 function App({ Component, pageProps }) {
   return (
     <>
-      <Script id='gtag' strategy="afterInteractive" dangerouslySetInnerHTML={{
-        __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','G-LM906722HL');`}}>
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-LM906722HL`}
+      />
+
+      <Script id="google-analytics" strategy="lazyOnload">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LM906722HL', {
+              page_path: window.location.pathname,
+            });
+                `}
       </Script>
     <ChakraProvider theme={theme}>
       <ContextProvider>
